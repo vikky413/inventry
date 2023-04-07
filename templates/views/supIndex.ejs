@@ -1,759 +1,107 @@
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-  <title><%= title %></title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="homeStyle.css">
 
-    <!----======== CSS ======== -->
-
-    <!----===== Boxicons CSS ===== -->
-    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-
-    <!--<title>Dashboard Sidebar Menu</title>-->
-    <link rel="stylesheet" href="supplier.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
-  <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
- 
-    <style>
-      .remaiderContainer{
-    width: 50%;
-    padding-top: 40px;
-    box-shadow: 0 39px 26px 0 rgb(228 192 217);
-    margin-left: 100px;
-}
-.remainderCard{
-    text-align: center;
-    padding: 44px;
-}
-.reminderBtn{
-    font-size: 20px;
-    padding: 10px;
-}
-        table {
-          font-family: arial, sans-serif;
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        td, th {
-          border: 1px solid #dddddd;
-          text-align: left;
-          padding: 8px;
-        }
-        
-        tr:nth-child(even) {
-          background-color: #dddddd;
-        }
-        </style>
+    <title><%= title %></title>
 </head>
-
 <body>
-    <nav class="sidebar ">
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    <!--<img src="logo.png" alt="">-->
-                </span>
-
-
-
-                <div class="text logo-text">
-                    <span class="name">SUPPLIER</span>
-                    
-                </div>
-            </div>
-
-            <!-- <i class='bx bx-chevron-right toggle'></i> -->
-        </header>
-
-
-
-        <div class="menu-bar">
-            <div class="menu">
-
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="#Dashboard" onclick="dashboard()">
-                            <i class='bx bx-home-alt icon'></i>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#payment" onclick="payment()">
-                            <i class='bx bx-wallet icon'></i>
-                            <span class="text nav-text">Payment Status</span>
-                        </a>
-                    </li>
-
-
-                    <li class="nav-link">
-                        <a href="#addproduct" onclick="addproduct()">
-                            <i class='bx bx-pie-chart-alt icon'></i>
-                            <span class="text nav-text">Add product</span>
-                        </a>
-                    </li>
-
-
-
-                    <li class="nav-link">
-                        <a href="#account" onclick="account()">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Account</span>
-                        </a>
-                    </li>
-                    <li class="nav-link">
-                        <a href="#userList" onclick="userList()">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Product Supply</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#category" onclick="category()">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Add category</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                        <a href="#stock" onclick="stock()">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Stock Reminder</span>
-                        </a>
-                    </li>
-
-                    <li class="nav-link">
-                      <a href="#reject" onclick="reject()">
-                          <i class='bx bx-bell icon'></i>
-                          <span class="text nav-text">Reject/Return</span>
-                      </a>
-                  </li>
-
-
-                </ul>
-            </div>
-
-
-
-            <div class="bottom-content">
-                <li class="">
-                    <a href="/logout">
-                        <i class='bx bx-log-out icon'></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
-                </li>
-
-
-
-
-
-            </div>
+    <div class="loginHome">
+    <div class="wrapper">
+        <div class="title-text">
+           <div class="title login">
+             Admin Login 
+           </div>
+           <div class="title signup">
+             Admin Signup 
+           </div>
         </div>
-
-
-
-    </nav>
-
-
-
-    <section class="home">
-      <div class="text">
-      
-        <br>
-        <div class="row">
-          <div class="column">
-            <div class="card" style="background: purple;">
-                <i class="fa fa-shopping-cart iconStyle" ></i>
-                 <div>
-                    <p>Total Product</p>
-                    <h3><%= pdata.length %></h3>
-                </div>
-            </div>
-        </div>
-        
-        <div class="column">
-            <div class="card" style="background: rgb(14, 119, 52);">
-                <i class="fa fa-dollar iconStyle" ></i>
-               <div>
-                   <p>Total Store Value</p>
-                   <% var x = 0 %>
-                   <% if(pdata.length >0){
-                    pdata.forEach(function(row){
-                    %>
-                  
-                    <% x = x +  row.price %> 
-                    <% })} %>
-                    
-                   <h3><%= x %></h3>
-                  
-                </div>
-            </div>
-          </div>
-          
-          <div class="column">
-            <div class="card" style="background: rgb(128, 0, 23);">
-                <i class="fa fa-hourglass-o iconStyle" ></i>
-                 <div>
-                    <p>Total Stock</p>
-                      <% var y = 0 %>
-                      <% if(pydata.length >0){
-                       pydata.forEach(function(row){
-                       %>
-                       <% if(row.pid == 0) { %>
-                       <% y = y +  1 %> 
-                       <% }})} %>
-                      <h3><%= y %></h3>
-                </div>
-            </div>
-          </div>
-          
-          <div class="column">
-            <div class="card" style="background: rgb(49, 189, 184);">
-                <i class="fa fa-cloud iconStyle" ></i>
-                 <div>
-                    <p>All Category</p>
-                    <h3><%= cdata.length %></h3>
-                </div>
-            </div>
-          </div>
-        </div>
-
-
-    </div>
-        <div id="Dashboard" class="collpase">
-            <div style="text-align: center;"> 
-              
-            </div>
-        </div>
-        <div id="payment" class="collpase">
-          <div class="container">
-            <div class="row">
-                <h1>Payment Status</h1>
-                <br>
-             <table class="table table-striped table-primary">
-              <thead>
-                <tr>
-                    
-                    <th>Product Name</th>
-                     <th>Transaction Id</th>
-                    <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-               <% if(pydata.length >0){
-                pydata.forEach(function(row){
-                %>
-                <tr>
-                    <td> <%= row.cname %></td>
-                    <td> <%= row.tid %></td>
-                    
-                    
-                  
-                    <td>
-                      <% if(row.pid == 1){ %>
-                      <a class="btn btn-primary " href="/pay/edit/<%= row._id %>">pending</a>
-                     
-                      <% } else { %>
-                        <a class="btn btn-success " href="#">received</a>
-                       
-                        <% } %>
-                    </td>
-                </tr>
-                <%  }) } %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        </div>
-
-        <div id="addproduct" class="collpase">
-            <div class="container">
-                <div class="row">
-
-                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div class="panel-title"> Add New Product</div>
-                                 </div>  
-                            <div class="panel-body" >
-                                <form action="/add-new-product" id="EmployeeForm" class="form-horizontal" method="post"  role="form" enctype="multipart/form-data">
-
-                                              <div class="form-group">
-                                                <label for="username" class="col-md-3 control-label">Product Image</label>
-                                                <div class="col-md-9">
-                                                    <input type="file" class="form-control" name="file" >
-                                                </div>
-                                            </div>
-
-                                      <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label">Product Name</label>
-                                        <div class="col-md-9">
-                                            <input type="text" class="form-control" name="pname" placeholder="Enter YourPassword Category Name">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label">Product Category</label>
-                                        <div class="col-md-9">
-                                           <select class="form-control" name="cat">
-                                               <option value="">Choose Category</option>
-                                               <% if(cdata.length > 0){
-                                                cdata.forEach(function(row){
-                                                %>
-                                               <option value="<%= row.cate %>"><%= row.cate%></option>
-                                               <%  }) } %>
-                                              </select>
-                                              </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label">Product price</label>
-                                        <div class="col-md-9">
-                                            <input type="number" class="form-control" name="price" placeholder="Enter Product Price">
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label"> Manufacturing Date</label>
-                                        <div class="col-md-9">
-                                            <input type="date" class="form-control" id="pmdate" placeholder="mm-yyyy" name="pmdate"  >
-                                        </div>
-                                    </div>
-                                   
-                                    <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label">Expiry Date</label>
-                                        <div class="col-md-9">
-                                            <input type="date" class="form-control" id="pxdate"  name="pxdate"  onchange="getObject(this);" >
-                                        </div>
-                                    </div>
-                                    <span id='message'></span>
-
-                                    <div class="form-group">
-                                        <label for="username" class="col-md-3 control-label">Product Description</label>
-                                        <div class="col-md-9">
-                                            <textarea type="text" class="form-control" name="descr" placeholder="Enter YourPassword Category Name"></textarea>
-                                        </div>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <!-- Button -->                                        
-                                        <div class="col-md-offset-3 col-md-9">
-                                        <input type="submit" name="submit" value="Add Product" class="btn btn-primary">   
-                                        </div>
-                                    </div>
-                                    
-                                    
-   
-                                </form>
-                             </div>
-                        </div>             
-             </div> 
-                </div>
-              </div>
-        </div>
-        <div id="account" class="collpase">
-            <div class="profileCon">
-                <div class="profileCard">
-                  <br />
-                  <% if(sups){ %> 
-                  <div><p><span style="font-size: 20px;"><b>Name : <%= sups.name %></b></span></p></div>
-                  <div>
-                    <p><span style="font-size: 20px;"><b>Email : <%= sups.email %></b></span></p>
+        <div class="form-container">
+           <div class="slide-controls">
+              <input type="radio" name="slide" id="login" checked>
+              <input type="radio" name="slide" id="signup">
+              <label for="login" class="slide login">Login</label>
+              <label for="signup" class="slide signup">Signup</label>
+              <div class="slider-tab"></div>
+           </div>
+           <div class="form-inner">
+           
+              <form action="/alogin" class="login" method="post">
+                
+               <% if(msg !=''){ %>
+                  <div id="signupalert"  class="alert alert-danger">
+                     <p style="text-align: center;color:red;"><%= msg %></p>
                   </div>
-                  <% } %>
-                </div>
-             </div>
+                      <% } %>
+
+                      <% if(succ !=''){%>
+                        <p style="text-align: center;color:green;"><%= succ %></p>
+                          <% } %>
+                 <div class="field">
+                    <input type="email" placeholder="Email Address" name="email" required>
+                 </div>
+                 <div class="field">
+                    <input type="password" placeholder="Password" name="password" required>
+                 </div>
+                 
+                 <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Login">
+                 </div>
+                 <div class="" style="margin-top: 20px;">
+                    Go to ? <a href="/" >Home</a>
+                 </div>
+              </form>
+
+
+              <form action="/asignup" class="signup" method="post">
+              
+                <div class="field">
+                    <input type="text" placeholder="Full Name" name="name" required>
+                 </div>
+                 <div class="field">
+                    <input type="email" placeholder="Email Address" name="email" required>
+                 </div>
+                 <div class="field">
+                    <input type="password" placeholder="Password" name="password" required>
+                 </div>
+                 <div class="field">
+                    <input type="password" placeholder="Confirm password" name="confirmpassword" required>
+                 </div>
+                 <div class="field btn">
+                    <div class="btn-layer"></div>
+                    <input type="submit" value="Signup">
+                 </div>
+              </form>
+
+           </div>
         </div>
-        <div id="userList" class="collpase">
-          <div class="container">
-            <div class="row">
-                <h1>Product Lists</h1>
-                <br>
-             <table class="table table-striped table-primary">
-              <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Name</th>
-                    <th>Price</th>
-                    <th>Image</th>
-                    <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-               <% if(pdata.length >0){
-                pdata.forEach(function(row){
-                %>
-                <tr>
-                    <td> <%= row.cat %></td>
-                    <td> <%= row.pname %></td>
-                    <td>रु <%= row.price %></td>
-                    
-                    <td>
-                      <div class="col-md-6">
-                          <img src="./upload/<%= row.file %>" alt="image" style="width: 40px; margin: 5px auto;">
-                      </div>
-                    </td>
-                    <td>
-                      <% if(row.pid == 100){ %>
-                      <a class="btn btn-primary " href="/sell/edit/<%= row._id %>">supply</a>
-                      <a class="btn btn-danger " href="/sell/delete/<%= row._id %>">delete</a>
-                      <% } else { %>
-                        <a class="btn btn-success " href="#">supplied</a>
-                        <a class="btn btn-danger " href="/sell/delete/<%= row._id %>">delete</a>
-                        <% } %>
-                    </td>
-                </tr>
-                <%  }) } %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        </div>
-        <div id="category" class="collpase">
-            <div class="container">
-                <div class="row">
-
-                    <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
-                        <div class="panel panel-info">
-                            <div class="panel-heading">
-                                <div class="panel-title"> Add New Category</div>
-                                 </div>  
-                            <div class="panel-body" >
-                                <form action="/add-new-category" id="EmployeeForm" class="form-horizontal" method="post"  role="form">
-
-
-                                      <div class="form-group">
-                                        <label for="category" class="col-md-12 ">Category Name</label>
-                                        <div class="col-md-12">
-                                            <input type="text" class="form-control" name="cate" placeholder="Enter Category Name">
-                                        </div>
-                                    </div>
-                                    
-                                  
-
-                                    <div class="form-group">
-                                        <!-- Button -->                                        
-                                        <div class="col-md-offset-3 col-md-9">
-                                        <input type="submit" name="submit" value="Add Category" class="btn btn-primary">   
-                                        </div>
-                                    </div>
-                                    
-                                    <p><a href="#">View All Lists</a></p>
-   
-                                </form>
-                             </div>
-                        </div>             
-             </div> 
-                </div>
-              </div>
-        </div>
-        <div id="stock" class="collpase">
-          <div class="container">
-            <div class="row">
-                <h1>Stock</h1>
-                <br>
-             <table class="table table-striped table-primary">
-              <thead>
-                <tr>
-                   
-                    <th>Name</th>
-                     <th>Manufacturing Date</th>
-                     <th>Expiry Date</th>
-                    <th>Image</th>
-                    
-                </tr>
-              </thead>
-              <tbody>
-               <% if(pdata.length >0){
-                pdata.forEach(function(row){ 
-                %>
-                <tr>
-                    <td> <%= row.pname %></td>
-                    <td> <%= row.pmdate %></td>
-                    <td> <%= row.pxdate %></td>
-                    
-                    <td>
-                      <div class="col-md-4">
-                          <img src="./upload/<%= row.file %>" alt="image" style="width: 50px; margin: 5px auto;">
-                      </div>
-                    </td>
-                   
-                </tr>
-                <%  }) } %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-        </div>
-
-        <div id="reject" class="collpase">
-          <div class="container">
-            <div class="row">
-                <h1>Reject/Return Lists</h1>
-                <br>
-             <table class="table table-striped table-primary">
-              <thead>
-                <tr>
-                    
-                    <th>Product Name</th>
-                    <th>Product Price</th>
-                    <th>Product Image</th>
-                    <th>Action</th>
-                </tr>
-              </thead>
-              <tbody>
-               <% if(pdata.length >0){
-                pdata.forEach(function(row){
-                %>
-                <% if(pydata.length >0){
-                    pydata.forEach(function(rows){
-                    %>
-                <% if(rows.pid == 1000 && row.pname == rows.cname){ %>
-                <tr>
-                   
-                    <td> <%= row.pname %></td>
-                    <td>रु <%= row.price %></td>
-                    
-                    <td>
-                      <div class="col-md-6">
-                          <img src="./upload/<%= row.file %>" alt="image" style="width: 40px; margin: 5px auto;">
-                      </div>
-                    </td>
-                    <td>
-                      <% if(row.pid == 999){ %>
-                      <a class="btn btn-success " href="#">Refunded</a>
-                  
-                      <% } else { %>
-                        <a class="btn btn-primary " href="/reject/edit/<%= row._id %>">Refund Pending</a>
-                      
-                        <% } %>
-                    </td>
-                </tr>
-                <% } }) } %>
-                <%  }) } %>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-    </section>
-
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">
-$('#pmdata, #pxdata').on('keyup', function () {
-    console.log("hshsdsbds")
-  if ($('#pmdata').val() == $('#pxdata').val()) {
-    $('#message').html('Matching').css('color', 'green');
-  } else 
-    $('#message').html('Not Matching').css('color', 'red');
-});
-    </script> -->
-
-
-
-    <script>
-        var pmdate =document.getElementById("pmdate").value
-               function getObject(object)
-                {
-                        console.log(object.value,pmdate); // result 2019-01-03
-                    }
-        const body = document.querySelector('body'),
-            sidebar = body.querySelector('nav'),
-            toggle = body.querySelector(".toggle"),
-            searchBtn = body.querySelector(".search-box"),
-            modeSwitch = body.querySelector(".toggle-switch"),
-            modeText = body.querySelector(".mode-text");
-
-        toggle.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
-        })
-
-
-
-        searchBtn.addEventListener("click", () => {
-            sidebar.classList.remove("close");
-        })
-
-
-
-        modeSwitch.addEventListener("click", () => {
-            body.classList.toggle("dark");
-
-            if (body.classList.contains("dark")) {
-                modeText.innerText = "Light mode";
-            } else {
-                modeText.innerText = "Dark mode";
-
-            }
-        });
-
-        function dashboard() {
-            document.getElementById("Dashboard").classList.add('collpase-open');
-            document.getElementById("Dashboard").classList.remove('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-        }
-
-        function payment() {
-            document.getElementById("payment").classList.add('collpase-open');
-            document.getElementById("payment").classList.remove('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-        }
-
-        function addproduct() {
-
-            document.getElementById("addproduct").classList.add('collpase-open');
-            document.getElementById("addproduct").classList.remove('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-
-        }
-        function account() {
-            document.getElementById("account").classList.add('collpase-open');
-            document.getElementById("account").classList.remove('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-        }
-        function userList() {
-            document.getElementById("userList").classList.add('collpase-open');
-            document.getElementById("userList").classList.remove('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-        }
-        function category() {
-            document.getElementById("category").classList.add('collpase-open');
-            document.getElementById("category").classList.remove('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-        }
-        function stock() {
-            document.getElementById("stock").classList.add('collpase-open');
-            document.getElementById("stock").classList.remove('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("reject").classList.remove('collpase-open');
-            document.getElementById("reject").classList.add('collpase');
-          
-
-        }
-
-        function reject() {
-           document.getElementById("reject").classList.add('collpase-open');
-            document.getElementById("reject").classList.remove('collpase');
-            
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("addproduct").classList.remove('collpase-open');
-            document.getElementById("addproduct").classList.add('collpase');
-            document.getElementById("Dashboard").classList.remove('collpase-open');
-            document.getElementById("Dashboard").classList.add('collpase');
-            document.getElementById("payment").classList.remove('collpase-open');
-            document.getElementById("payment").classList.add('collpase');
-
-        }
-
-    </script>
-
+     </div>
+    </div>
+     <script>
+        
+// <!-- -------------------------------l0gin-------------------------------- -->
+const loginText = document.querySelector(".title-text .login");
+         const loginForm = document.querySelector("form.login");
+         const loginBtn = document.querySelector("label.login");
+         const signupBtn = document.querySelector("label.signup");
+         const signupLink = document.querySelector("form .signup-link a");
+         signupBtn.onclick = (()=>{
+           loginForm.style.marginLeft = "-50%";
+           loginText.style.marginLeft = "-50%";
+         });
+         loginBtn.onclick = (()=>{
+           loginForm.style.marginLeft = "0%";
+           loginText.style.marginLeft = "0%";
+         });
+         signupLink.onclick = (()=>{
+           signupBtn.click();
+           return false;
+         });
+// <!-- -------------------------------l0gin------end-------------------------- -->
+     </script>
 </body>
-
 </html>

@@ -20,6 +20,10 @@ const supplierSchema = new Schema({
         type:String,
         required:true
     },
+    cat :{
+        type:String,
+        required:true
+    },
   sid : {
     type:Number,
     required:true

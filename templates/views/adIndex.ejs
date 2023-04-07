@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <!----======== CSS ======== -->
+
+    <!----===== Boxicons CSS ===== -->
+    <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--<title>Dashboard Sidebar Menu</title>-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+  <script src="https://cdn.ckeditor.com/4.9.1/standard/ckeditor.js"></script>
+    <link rel="stylesheet" href="admin.css">
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+        
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+        </style>
+</head>
+
+<body>
+    <nav class="sidebar">
+        <header>
+            <div class="image-text">
+                <span class="image">
+                    <!--<img src="logo.png" alt="">-->
+                </span>
+
+                <div class="text logo-text">
+                    <span class="name">ADMIN</span>
+                   
+                </div>
+            </div>
+            <!-- <i class='bx bx-chevron-right toggle'></i> -->
+        </header>
+
+        <div class="menu-bar">
+            <div class="menu">
+
+
+
+
+
+                <ul class="menu-links">
+                    <li class="nav-link">
+                        <a href="#Dashboard" onclick="dashboard()">
+                            <i class='bx bx-home-alt icon'></i>
+                            <span class="text nav-text">Dashboard</span>
+                        </a>
+                    </li>
+
+
+
+                    <!-- <li class="nav-link">
+                        <a href="#payment" onclick="payment()">
+                            <i class='bx bx-wallet icon'></i>
+                            <span class="text nav-text">Payment</span>
+                        </a>
+                    </li> -->
+
+
+
+
+
+
+
+                    <li class="nav-link">
+                        <a href="#addproduct" onclick="addproduct()">
+                            <i class='bx bx-pie-chart-alt icon'></i>
+                            <span class="text nav-text">products</span>
+                        </a>
+                    </li>
+
+
+
+                    <li class="nav-link">
+                        <a href="#account" onclick="account()">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Account</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#userList" onclick="userList()">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">Supplier List</span>
+                        </a>
+                    </li>
+                    <li class="nav-link">
+                        <a href="#stock" onclick="stock()">
+                            <i class='bx bx-bell icon'></i>
+                            <span class="text nav-text">stock</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-link">
+                      <a href="#category" onclick="category()">
+                          <i class='bx bx-bell icon'></i>
+                          <span class="text nav-text">category</span>
+                      </a>
+                  </li>
+
+                </ul>
+            </div>
+
+
+
+            <div class="bottom-content">
+                <li class="">
+                    <a href="/logout">
+                        <i class='bx bx-log-out icon'></i>
+                        <span class="text nav-text">Logout</span>
+                    </a>
+                </li>
+            </div>
+        </div>
+    </nav>
+
+    <section class="home">
+        <div class="text">
+         
+          <br>
+          <div class="row">
+            <div class="column">
+              <div class="card" style="background: purple;">
+                  <i class="fa fa-shopping-cart iconStyle" ></i>
+                   <div>
+                      <p>Total Product</p>
+                      <h3><%= pdata.length %></h3>
+                  </div>
+              </div>
+          </div>         
+          <div class="column">
+              <div class="card" style="background: rgb(14, 119, 52);">
+                  <i class="fa fa-dollar iconStyle" ></i>
+                 <div>
+                     <p>Total Store Value</p>
+                     <% var x = 0 %>
+                     <% if(pdata.length >0){
+                      pdata.forEach(function(row){
+                      %>
+                    
+                      <% x = x +  row.price %> 
+                      <% })} %>
+                      
+                     <h3><%= x %></h3>
+                    
+                  </div>
+              </div>
+            </div>
+            
+            <div class="column">
+              <div class="card" style="background: rgb(128, 0, 23);">
+                  <i class="fa fa-hourglass-o iconStyle" ></i>
+                   <div>
+                      <p>Total Stock</p>
+                      <% var y = 0 %>
+                      <% if(pydata.length >0){
+                       pydata.forEach(function(row){
+                       %>
+                       <% if(row.pid == 0) { %>
+                       <% y = y +  1 %> 
+                       <% }})} %>
+                      <h3><%= y %></h3>
+                  </div>
+              </div>
+            </div>
+            
+            <div class="column">
+              <div class="card" style="background: rgb(49, 189, 184);">
+                  <i class="fa fa-cloud iconStyle" ></i>
+                   <div>
+                      <p>All Category</p>
+                      <h3><%= cdata.length %></h3>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+      </div>
+        
+        <div id="Dashboard" class="collpase">
+            <div style="text-align: center;"> 
+              <% if(msg !=''){ %>
+                <div id="signupalert"  class="alert alert-danger">
+                   <p style="text-align: center;color:red;"><%= msg %></p>
+                </div>
+                    <% } %>
+            </div>
+        </div>
+        <div id="payment" class="collpase">
+        </div>
+
+        <div id="addproduct" class="collpase">
+
+            <div class="container">
+                <div class="row">
+                    <h1>Product Lists</h1>
+                    <br>
+                 <table class="table table-striped table-primary">
+                  <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Name</th>
+                        <th>Price</th>
+                        <th>Manufacturing Date</th>
+                        <th>Expire Date</th>
+                        <th>Image</th>
+                        <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <% if(pdata.length >0){
+                    pdata.forEach(function(row){
+                    %>
+                    <% if(row.pid == 0){ %>
+                    <tr>
+                        <td> <%= row.cat %></td>
+                        <td> <%= row.pname %></td>
+                        <td> रु<%= row.price %></td>
+                        <td> <%= row.pmdate %></td>
+                        <td> <%= row.pxdate %></td>
+                        <td>
+                          <div class="col-md-4 ">
+                              <img src="./upload/<%= row.file %>" alt="image" style="width: 40px; margin: 5px auto;"id="productImg" onClick="zoomImg()">
+                          </div>
+                        </td>
+                        <td>
+                         
+                          <a class="btn btn-primary" href="payments">Buy</a>
+                          <a class="btn btn-danger" style="margin: 2px;" href="/buy/delete/<%= row._id %>">Delete</a>
+                          
+                        </td>
+                    </tr>
+                    <% } }) } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+        </div>
+        <div id="account" class="collpase">
+           <div class="profileCon">
+              <div class="profileCard">
+                <br>
+                <% if(users) { %>
+                <div><p><span style="font-size: 20px;"><b>Name : <%= users.name %></b></span></p></div>
+                <div>
+                  <p><span style="font-size: 20px;"><b>Email : <%= users.email %></b></span></p>
+                </div>
+                <% } %>
+              </div>
+           </div>
+        </div>
+        <div id="userList" class="collpase">
+            <div class="container">
+                <div class="row">
+                    <h1>Total Suppliers</h1>
+                    <br>
+                 <table class="table table-striped table-primary">
+                  <thead>
+                    <tr>
+                        
+                        <th>Name</th>
+                        <th>Email</th>
+                        
+                        <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <% if(supl.length >0){
+                    supl.forEach(function(row){
+                    %>
+                    <tr>
+                        
+                        <td> <%= row.name %></td>
+                        <td> <%= row.email %></td>
+                        
+                        
+                        <td>
+                          <% if(row.sid == 1){ %>
+                          <a class="btn btn-primary " href="/users/edit/<%= row._id %>">approve</a>
+                          <a class="btn btn-danger " href="/users/delete/<%= row._id %>">delete</a>
+                          <% } else { %>
+                            <a class="btn btn-success"  href="#">approved</a>
+                            <a class="btn btn-danger " href="/users/delete/<%= row._id %>">delete</a>
+                          <% } %>
+
+                        </td>
+                    </tr>
+                    <%  }) } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+        </div>
+        <div id="category" class="collpase">
+            <div class="container">
+                <div class="row">
+                    <h1>Category Lists</h1>
+                    <br>
+                 <table class="table table-striped table-primary">
+                  <thead>
+                    <tr>
+                        <th>Category</th>
+                       
+                        <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                   <% if(cdata.length >0){
+                    cdata.forEach(function(row){
+                    %>
+                    <tr>
+                        <td> <%= row.cate %></td>
+                        
+                        <td><a class="btn btn-primary " href="/cat/delete/<%= row._id %>">delete</a>
+                          <!-- <a class="btn btn-danger " href=""><i class="fa fa-trash"></i></a> -->
+                        </td>
+                    </tr>
+                    <%  }) } %>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+        </div>
+        <div id="stock" class="collpase">
+          <div class="container">
+            <div class="row">
+                <h1>Total Stock</h1>
+                <br>
+             <table class="table table-striped table-primary">
+              <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Manufacturing Date</th>
+                    <th>Expire Date</th>
+                    <th>Image</th>
+                    <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+               <% if(pdata.length >0){
+                pdata.forEach(function(row){
+                %>
+                <% if(pydata.length >0){
+                  pydata.forEach(function(rows){
+                  %>
+                <% if(rows.pid == 0 && rows.cname == row.pname) {%>
+                <tr>
+                    <td> <%= row.pname %></td>
+                    <td> रु<%= row.price %></td>
+                    <td> <%= row.pmdate %></td>
+                    <td> <%= row.pxdate %></td>
+                    <td>
+                      <div class="col-md-4">
+                          <img src="./upload/<%= row.file %>" alt="image" style="width: 40px; margin: 5px auto;">
+                      </div>
+                    </td>
+                    <td>
+                     <% if(rows.pid == 0) { %>
+                      <a class="btn btn-primary" style="margin: 2px;" href="/sells/return/<%= rows._id %>">Return</a>
+                      <% } else {%>
+                        <a class="btn btn-success" style="margin: 2px;" href="#">Returned</a>
+                        <% } %>
+                    </td>
+                </tr>
+                <%} }) } %>
+                <%  }) } %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        </div>
+
+          <div class="zoomImgPopup" id="zoomImgPopup">
+              <div class="imgCon">
+                <img id="myImg" src="compman.gif" class="zoomOpenImgStyle" >
+                <div onClick="closeImgPopup()">
+                  <button class="closeZoomImgBtn">OK</button>
+                  </div>
+              </div>
+          </div>
+
+    </section>
+
+
+
+    <script>
+
+        const imgVal = document.getElementById('productImg').src;
+        var zoomImgPopup = document.getElementById('zoomImgPopup')
+
+
+      function zoomImg(){
+
+        console.log("zoomImgPopup",zoomImgPopup)
+        zoomImgPopup.classList.add('open-zoomImgPopup')
+        console.log("fffvfvfvc",imgVal)
+        document.getElementById("myImg").src = imgVal;
+      }
+      function closeImgPopup(){
+        zoomImgPopup.classList.remove('open-zoomImgPopup')
+      }
+
+        const body = document.querySelector('body'),
+            sidebar = body.querySelector('nav'),
+            toggle = body.querySelector(".toggle"),
+            searchBtn = body.querySelector(".search-box"),
+            modeSwitch = body.querySelector(".toggle-switch"),
+            modeText = body.querySelector(".mode-text");
+
+        toggle.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        })
+
+
+
+        searchBtn.addEventListener("click", () => {
+            sidebar.classList.remove("close");
+        })
+
+
+
+        modeSwitch.addEventListener("click", () => {
+            body.classList.toggle("dark");
+
+            if (body.classList.contains("dark")) {
+                modeText.innerText = "Light mode";
+            } else {
+                modeText.innerText = "Dark mode";
+
+            }
+        });
+
+        function dashboard() {
+            document.getElementById("Dashboard").classList.add('collpase-open');
+            document.getElementById("Dashboard").classList.remove('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+            document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+        }
+
+        function payment() {
+            document.getElementById("payment").classList.add('collpase-open');
+            document.getElementById("payment").classList.remove('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+            document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+        }
+
+        function addproduct() {
+
+            document.getElementById("addproduct").classList.add('collpase-open');
+            document.getElementById("addproduct").classList.remove('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+            document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+
+        }
+        function account() {
+            document.getElementById("account").classList.add('collpase-open');
+            document.getElementById("account").classList.remove('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+            document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+        }
+        function userList() {
+            document.getElementById("userList").classList.add('collpase-open');
+            document.getElementById("userList").classList.remove('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+        }
+        function category() {
+            document.getElementById("category").classList.add('collpase-open');
+            document.getElementById("category").classList.remove('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+            document.getElementById("stock").classList.remove('collpase-open');
+            document.getElementById("stock").classList.add('collpase');
+
+        }
+
+        function stock() {
+          document.getElementById("stock").classList.add('collpase-open');
+            document.getElementById("stock").classList.remove('collpase');
+
+          document.getElementById("category").classList.remove('collpase-open');
+            document.getElementById("category").classList.add('collpase');
+            document.getElementById("account").classList.remove('collpase-open');
+            document.getElementById("account").classList.add('collpase');
+            document.getElementById("addproduct").classList.remove('collpase-open');
+            document.getElementById("addproduct").classList.add('collpase');
+            document.getElementById("Dashboard").classList.remove('collpase-open');
+            document.getElementById("Dashboard").classList.add('collpase');
+            document.getElementById("payment").classList.remove('collpase-open');
+            document.getElementById("payment").classList.add('collpase');
+            document.getElementById("userList").classList.remove('collpase-open');
+            document.getElementById("userList").classList.add('collpase');
+        }
+
+    </script>
+
+
+
+</body>
+
+</html>

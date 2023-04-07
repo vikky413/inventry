@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title><%= title %></title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- custome css  -->
+    <link rel="stylesheet" href="popStyle.css">
+    <title>Payment</title>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+</head>
+
+<body>
+    <div class="main-parent">
+        <div class="form-wrap">
+
+            <form action="/paymentss" class="signup" method="post">
+                <div class="container">
+                    <h1><span style="font-size: 52px; color: blue;">P</span>ayment</h1>
+                    <div class="single-input">
+                        <label for="holder"><b>Product Name</b></label>
+                        <input id="holderName" type="text" placeholder="Enter Product Name" name="cname" required
+                            maxlength="20">
+                    </div>
+                    
+                    <div class="single-input">
+                        <label for="card"><b>Card Number</b></label>
+                        <input id="cardNumber" type="text" placeholder="4242 4242 4242 4242" name="cardNumber" required
+                            maxlength="16">
+                    </div>
+                    
+                    <div class="single-input">
+                        <label for="expry"><b>Expiry Date</b></label>
+                        <input id="expiryDate" type="text" placeholder="12/30" name="expiryDate" required maxlength="5">
+                    </div>
+                    <div class="single-input">
+                        <label for="cvv"><b>CVV</b></label>
+                        <input id="cvv" type="cvvword" placeholder="123" name="cvv" required maxlength="3">
+                    </div>
+                    <div class="submit-button">
+                        <button type="submit" class="button">Pay Now</button>
+                        <!-- <input type="submit" class="button" value="Pay Now" > -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- <script>
+        const submit_button = document.querySelector(".button");
+        submit_button.onclick = (e) => {
+            e.preventDefault();
+            const cardNumber = document.getElementById("cardNumber").value;
+            const holderName = document.getElementById("holderName").value;
+            const expiryDate = document.getElementById("expiryDate").value;
+            const cvv = document.getElementById("cvv").value;
+
+            localStorage.setItem('Card Number', cardNumber);
+            localStorage.setItem('Holder name', holderName);
+            localStorage.setItem('Expiry Date', expiryDate);
+            localStorage.setItem('CVV', cvv);
+            if (cardNumber == "" && holderName == "" && expiryDate == "" && cvv == "") {
+                Swal.fire(
+                    'Opps..!',
+                    'input field has no value!',
+                    'error'
+                );
+            }
+            else
+                Swal.fire(
+                    'Good job!',
+                    'Register successful!',
+                    'success'
+                );
+            setTimeout(() => {
+                location.href = '/adIndex';
+            }, 5000)
+        }
+    </script> -->
+</body>
+
+</html>

@@ -10,7 +10,9 @@ const Supplier = require("./models/supplier");
 const Product = require("./models/product");
 const Category = require("./models/category")
 const Payment = require("./models/payment")
+const otpModel = require("./models/otp")
 var jwt = require('jsonwebtoken');
+const nodemailer = require('nodemailer')
 const multer = require("multer");
 
 const port = process.env.PORT || 5000;
@@ -83,6 +85,127 @@ function checkEmaila(req, res, next) {
 }
 
 
+
+// This is for Forget Password 
+
+app.post('/mail', async (req,res)=> {
+ 
+  const code = req.body.code;
+
+  const checkUser = otpModel.findOne({ code:code });
+  checkUser.exec((err, data) => {
+   if(data) {
+    const gmail= data.email;
+    res.render('generate',{title:"Create New Password",msg:'',gmail:gmail,succ:''})
+   }
+   else {
+    res.render('forget',{ title: 'Inventory', msg: '',succ:'',gmail:'',errors:'OTP NOT MATCHED' })
+   }
+  })
+
+})
+
+app.get('/forget',  (req,res)=> {
+  res.render('forget',{ title: 'Inventory', msg: '',succ:'',email:'',errors:'' })
+})
+app.get('/generate',(req,res)=> {
+  res.render("generate",{title:"Create New Password",msg:'',gmail:'',succ:''})
+})
+app.post('/generate',async (req,res)=> {
+  const email = req.body.gmail;
+  const password = req.body.password;
+  const confpassword = req.body.confpassword;
+  if(!password || !confpassword) {
+    res.render("generate",{title:"Create New Password",msg:'Please fill all details',gmail:'',succ:''})
+  }
+  else {
+    if(password == confpassword){
+      
+      const checkUser = Supplier.findOne({ email:email });
+      await checkUser.exec((err,data)=>{
+        if(err) throw err
+        const id = data._id;
+        var passdelete = Supplier.findByIdAndUpdate(id, { password:password,
+ confirmpassword:confpassword });
+        passdelete.exec(function (err) {
+          if (err) throw err;
+          res.render("generate",{title:"Create New Password",msg:'',gmail:'',succ:'Password Reset Successfully'});
+        });
+      })
+  
+ 
+    }
+    else {
+      res.render("generate",{title:"Create New Password",msg:'Password and confirm password not matched',gmail:''});
+    }
+  }
+})
+
+app.post('/forget', async (req,res)=> {
+  var email = req.body.email;
+  var minm = 100000;
+  var maxm = 999999;
+  var code = Math.floor(Math.random() * (maxm - minm + 1)) + minm;
+  var expiryt = new Date().getTime() + 300*1000;
+  const checkUser = Supplier.findOne({ email:email });
+  checkUser.exec((err, data) => {
+   if(data){
+
+    var userDetails = new otpModel({
+    
+      email:email,
+      code:code,
+      expiryt:expiryt
+      
+    });
+    userDetails.save((err, doc) => {
+      if (err) throw err;
+      res.render('forget',{title:"Inventory", msg:"",succ:'OTP send in your mail',gmail:email,errors:''});
+   
+    });
+
+
+    let transporter = nodemailer.createTransport({
+    service:"gmail",
+    auth : {
+      user:"warikshweta07@gmail.com",
+      pass:"qupbuspxrfpdunmj"
+    },
+    tls:{
+      rejectUnauthorized:false
+    }
+  })
+  
+  let mailOptions = {
+    from: "warikshweta07@gmail.com",
+    to: email,
+    subject:"OTP FOR Inventory",
+    text:`Your OTP For Invetory :  ${code}`
+  }
+
+  transporter.sendMail(mailOptions,(err,success)=>{
+  if(err) {
+    throw err;
+  }
+  else {
+    console.log("successfully sent")
+  }
+  })
+  }
+  else {
+    res.render("forget",{title:"Inventory", msg:"Email not exist",succ:'',errors:''})
+  }
+  })
+
+})
+
+
+
+
+
+
+
+
 app.post("/slogin",async (req, res) => {
   const documentCount = await Payment.count({});
   var x = 0;
@@ -99,7 +222,7 @@ app.post("/slogin",async (req, res) => {
   const checkUser = Supplier.findOne({ email:email });
   checkUser.exec((err, data) => {
     if (data == null) {
-      res.render('supplier', { title: 'Inventory Management System', msg: "Invalid Username and Password.",succ:'' });
+      res.redirect('/exist')
     }
     else {
       if (err) throw err;
@@ -121,17 +244,29 @@ app.post("/slogin",async (req, res) => {
           
         }
         else {
-          res.render('supplier', { title: 'Inventory Management System', msg: "Waiting for Approval",succ:'' });
+          res.redirect('/wait');
         }
-          
 
       }
       else {
-        res.render('supplier', { title: 'Inventory Management System', msg: "Invalid Username or Password.",succ:'' });
+       res.redirect('/fail')
       }
     }
   });
 });
+
+app.get('/exist',(req,res)=>{
+  res.render('exist')
+})
+
+app.get('/fail',(req,res)=>{
+  res.render('fail')
+})
+
+app.get('/wait',(req,res)=>{
+  res.render('wait')
+})
+
 
 app.post("/alogin", (req, res) => {
   var email = req.body.email;
@@ -172,8 +307,16 @@ app.get("/admin", (req, res) => {
   res.render("admin", { title: "Inventory Management System",msg:'',succ:'' });
 });
 
-app.get("/supplier", (req, res) => {
-  res.render("supplier", { title: "Inventory Management System",msg:'',succ:'' });
+app.get("/supplier", async (req, res) => {
+  const catdata = Category.find({})
+  try {
+    let cats = await catdata.exec();
+    res.render("supplier", { title: "Inventory Management System",msg:'',succ:'',cdata:cats });
+  }
+  catch(err){
+    throw Error;
+  }
+ 
 });
 app.get('/payments', (req,res)=> {
   res.render("payments", { title: 'Inventory Management System'})
@@ -242,6 +385,7 @@ app.post("/ssignup",checkEmail ,function (req, res, next) {
   var email = req.body.email;
   var password = req.body.password;
   var confpassword = req.body.confirmpassword;
+  var cat = req.body.cat;
   var sid = 1;
   if (password != confpassword) {
     res.render("supplier", {
@@ -255,15 +399,12 @@ app.post("/ssignup",checkEmail ,function (req, res, next) {
       email: email,
       password: password,
       confirmpassword: confpassword,
-      sid:sid
+      sid:sid,
+      cat:cat
     });
     userDetails.save((err, doc) => {
       if (err) throw err;
-      res.render("supplier", {
-        title: "InventoryManagement System",
-        succ: "User Registerd Successfully",
-        msg:''
-      });
+      res.redirect('/supplier')
     });
   }
 });
@@ -356,7 +497,7 @@ app.post("/add-new-category", function (req, res, next) {
   //   getPassCat.exec(function (err, data) {
   passcatDetails.save(function (err, doc) {
     // if (err) throw err;
-    res.redirect('/supIndex')
+    res.redirect('/adIndex')
     // res.render('supIndex', { title: 'Restaurant Management System', loginUser: loginUser, errors: '', success: 'Product category inserted successfully',records:data });
   })
 })

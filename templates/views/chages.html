@@ -1,98 +1,38 @@
+ <div id="addcat" class="collpase">
+          <div class="container">
+            <div class="row">
 
-<li class="nav-link">
-    <a href="#addcat" onclick="addcat()">
-        <i class='bx bx-bell icon'></i>
-        <span class="text nav-text">add category</span>
-    </a>
-</li>
+                <div id="signupbox" style="margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title"> Add New Category</div>
+                             </div>  
+                        <div class="panel-body" >
+                            <form action="/add-new-category" id="EmployeeForm" class="form-horizontal" method="post"  role="form">
 
 
-  <li class="nav-link">
-    <a href="#category" onclick="category()">
-        <i class='bx bx-bell icon'></i>
-        <i class='bx bxs-category-alt icon' ></i>
-        <span class="text nav-text">category</span>
-    </a>
-</li>
-
-<li class="nav-link">
-  <a href="#payment" onclick="payment()">
-      <i class='bx bx-bell icon'></i>
-      <span class="text nav-text">My Payment</span>
-  </a>
-</li>
+                                  <div class="form-group">
+                                    <label for="category" class="col-md-12 ">Category Name</label>
+                                    <div class="col-md-12">
+                                        <input type="text" class="form-control" name="cate" placeholder="Enter Category Name">
+                                    </div>
+                                </div>
 
 
 
-<li class="nav-link">
-  <a href="#account" onclick="account()">
-      <i class='bx bx-bell icon'></i>
-      <span class="text nav-text">Account</span>
-  </a>
-</li>
+                                <div class="form-group">
+                                    <!-- Button -->                                        
+                                    <div class="col-md-offset-3 col-md-9">
+                                    <input type="submit" name="submit" value="Add Category" class="btn btn-primary">   
+                                    </div>
+                                </div>
 
+                                <p><a href="#">View All Lists</a></p>
 
-
-
-</ul>
-</div>
-
-
-
-
-<div id="payment" class="collpase">
-<div class="container">
-<div class="row">
-<h1>Product Lists</h1>
-<br>
-<table class="table table-striped table-primary">
-<thead>
-<tr>
-
-  <th>Product Name</th>
-  <th>Product Price</th>
-  <th>Action</th>
-</tr>
-</thead>
-<tbody>
-<% if(pydata.length >0){
-pydata.forEach(function(row){
-%>
-<% if(row.user == loginUser){ %>
-<tr>
-
-  <td> <%= row.cname %></td>
-  <td> $<%= row.price %></td>
-  
-  <td>
-    <a class="btn btn-primary" href="/invoice">View</a>
-  </td>
-  
-</tr>
-<% } }) } %>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-
-    
-    document.getElementById("addcat").classList.remove('collpase-open');
-            document.getElementById("addcat").classList.add('collpase');
-
-     function addcat(){
-            document.getElementById("addcat").classList.add('collpase-open');
-            document.getElementById("addcat").classList.remove('collpase'); 
-            document.getElementById("stock").classList.remove('collpase-open');
-            document.getElementById("stock").classList.add('collpase');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.remove('collpase-open');
-            document.getElementById("category").classList.add('collpase');
-            document.getElementById("account").classList.remove('collpase-open');
-            document.getElementById("account").classList.add('collpase');
-
-            document.getElementById("payment").classList.add('collpase');
-            document.getElementById("userList").classList.remove('collpase-open');
-            document.getElementById("userList").classList.add('collpase');
-            
-        }
+                            </form>
+                         </div>
+                    </div>             
+              </div> 
+            </div>
+          </div>
+        </div>

@@ -1,0 +1,77 @@
+
+<li class="nav-link">
+    <a href="#addcat" onclick="addcat()">
+        <i class='bx bx-bell icon'></i>
+        <span class="text nav-text">add category</span>
+    </a>
+</li>
+
+
+  <li class="nav-link">
+    <a href="#category" onclick="category()">
+        <i class='bx bx-bell icon'></i>
+        <i class='bx bxs-category-alt icon' ></i>
+        <span class="text nav-text">category</span>
+    </a>
+</li>
+
+<li class="nav-link">
+  <a href="#payment" onclick="payment()">
+      <i class='bx bx-bell icon'></i>
+      <span class="text nav-text">My Payment</span>
+  </a>
+</li>
+
+
+
+<li class="nav-link">
+  <a href="#account" onclick="account()">
+      <i class='bx bx-bell icon'></i>
+      <span class="text nav-text">Account</span>
+  </a>
+</li>
+
+
+
+
+</ul>
+</div>
+
+
+
+
+<div id="payment" class="collpase">
+<div class="container">
+<div class="row">
+<h1>Product Lists</h1>
+<br>
+<table class="table table-striped table-primary">
+<thead>
+<tr>
+
+  <th>Product Name</th>
+  <th>Product Price</th>
+  <th>Action</th>
+</tr>
+</thead>
+<tbody>
+<% if(pydata.length >0){
+pydata.forEach(function(row){
+%>
+<% if(row.user == loginUser){ %>
+<tr>
+
+  <td> <%= row.cname %></td>
+  <td> $<%= row.price %></td>
+  
+  <td>
+    <a class="btn btn-primary" href="/invoice">View</a>
+  </td>
+  
+</tr>
+<% } }) } %>
+</tbody>
+</table>
+</div>
+</div>
+</div>
